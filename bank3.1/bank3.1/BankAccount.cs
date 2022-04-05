@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace bank2._5
+namespace bank3._1
 {
     internal class BankAccount
     {
-        
         private long _accountNumber;
         private long _balance;
         private BankAccountType _bankAccountType;
@@ -32,7 +31,7 @@ namespace bank2._5
         }
 
 
-        
+
 
         public long Balance1
         {
@@ -50,7 +49,7 @@ namespace bank2._5
 
         }
 
-        
+
 
         public BankAccountType TypeAccount
         {
@@ -71,8 +70,8 @@ namespace bank2._5
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="number"></param>
-        /// <param name="refill"></param>
+        /// <param name="number">номер Счёта</param>
+        /// <param name="refill">Положить сумму</param>
         public void DepositMoney(long number, long refill)
         {
             if (number == _accountNumber)
@@ -84,13 +83,13 @@ namespace bank2._5
 
         }
 
-        
+
         // Снять со счета
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="number"></param>
-        /// <param name="take"></param>
+        /// <param name="number">Номер счёта</param>
+        /// <param name="take">Снять сумму</param>
         public void WithdrawMoney(long number, long take)
         {
             if (number == _accountNumber)
@@ -104,6 +103,29 @@ namespace bank2._5
                 else
                     Console.WriteLine($"На счету недостаточно средств. Баланс: {_balance}; Сумма для снятия: {take};");
 
+            }
+        }
+
+
+        //Перевод денег
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="moneyFrom">Откуда снимаются деньги</param>
+        /// <param name="take">Сумма</param>
+        
+        public void MoneyTransfer(BankAccount moneyFrom, long take)
+        {
+            if (moneyFrom._balance > take)
+            {
+                _balance = _balance + take;
+                moneyFrom._balance = moneyFrom._balance - take;
+                Console.WriteLine($"На счёт: {_accountNumber}; Зачислена сумма {take}; Остаток: {_balance};");
+                Console.WriteLine($"Со счёта: {moneyFrom._accountNumber}; Списана сумма: {take}; Остаток: {moneyFrom._balance};");
+            }
+            else
+            {
+                Console.WriteLine($"Недостаточно средств на счёте: {moneyFrom._accountNumber}, для списания суммы: {take}");
             }
         }
 
@@ -173,7 +195,7 @@ namespace bank2._5
         {
             Console.WriteLine($"Тип счёта:{_bankAccountType} , Номер счёта: {_accountNumber}, Баланс: {_balance}");
         }
-
-
     }
+
 }
+
